@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-const axios = require("axios");
 const useFetch = (method, url, body, setFunction, key) => {
   const [isLoading, setIsLoading] = useState(false);
   const [apiData, setApiData] = useState(null);
@@ -39,7 +38,7 @@ const useFetch = (method, url, body, setFunction, key) => {
     };
 
     fetchData();
-  }, [url, method, body]);
+  }, [url, method, body, key, setFunction]);
 
   return { isLoading, apiData, serverError };
 };

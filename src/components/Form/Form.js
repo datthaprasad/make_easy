@@ -1,4 +1,3 @@
-import { Children } from "react";
 import { FormContainer } from "./Form.styles";
 
 export const Form = ({ submitHandler,children }) => {

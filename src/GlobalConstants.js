@@ -53,6 +53,11 @@ constants.SERVICE_PROVISER_MENU = [
     handler: () => {},
   },
   {
+    name: "Profile",
+    navigate: "/profile",
+    handler: () => {},
+  },
+  {
     name: "Logout",
     navigate: "/logout",
     type: "button",

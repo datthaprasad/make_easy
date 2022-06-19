@@ -12,6 +12,8 @@ import constants from "./GlobalConstants";
 import Logout from "./pages/Logout/Logout";
 import AdminListService from "./pages/Service/AdminServiceList";
 import UpdateService from "./pages/Service/UpdateService";
+import Profile from "./pages/Profile/Profile";
+import EditProfile from "./pages/Profile/EditProfile";
 
 function App() {
   const [menuItems, setMenuItems] = useState(constants.DEFAULT_MENU);
@@ -60,8 +62,17 @@ function App() {
 
           <Route path="/listservice" element={<ListService />}></Route>
           <Route path="/addservice" element={<AddService />}></Route>
-          <Route path="/adminlistservice" element={<AdminListService />}></Route>
-          <Route path="/adminupdateservice/:id" element={<UpdateService />}></Route>
+          <Route
+            path="/adminlistservice"
+            element={<AdminListService />}
+          ></Route>
+          <Route
+            path="/adminupdateservice/:id"
+            element={<UpdateService />}
+          ></Route>
+
+          <Route path="/profile" element={<Profile />}></Route>
+          <Route path="/editprofile" element={<EditProfile />}></Route>
 
           <Route path="*" element={<Home />}></Route>
         </Routes>

@@ -86,7 +86,7 @@ const AddService = () => {
               />
             </Form>
           )}
-          {userContext.userType != 3 && (
+          {userContext.userType !== 3 && (
             <h1>You are not authorized to view this page</h1>
           )}
         </>
