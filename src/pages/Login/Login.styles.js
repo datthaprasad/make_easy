@@ -52,17 +52,18 @@ export const MainContainer = styled(Container)`
   }
 `;
 
-export const BgImgContainer = styled(Container)`
-    background-image: url(${BgImg});
-    width: 100vw;
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
+export const BgImgContainer = styled.div`
+  background-image: url(${BgImg});
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  @media only screen and (max-width: 768px) {
     background-size: cover;
-    @media only screen and (max-width: 768px) {
-        background-size: cover;
-    }
-    `
+  }
+`;
 
 export const WelcomeText = styled.h2`
   margin: 3rem 0 2rem 0;

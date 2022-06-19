@@ -52,10 +52,11 @@ export const MainContainer = styled(Container)`
   }
 `;
 
-export const BgImgContainer = styled(Container)`
+export const BgImgContainer = styled.div`
   background-image: url(${BgImg});
   width: 100vw;
-  height: 100%;
+  height: 100vh;
+  top: 0;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

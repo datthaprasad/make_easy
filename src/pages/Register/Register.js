@@ -1,10 +1,8 @@
-import { useContext } from "react";
 import { useState } from "react";
-import { Loading } from "react-fullscreen-loading";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
-import UserContext from "../../context/UserContext";
+import Loader from "../../components/Loader/Loader";
 import fetchApi from "../../utility/fetch";
 import {
   MainContainer,
@@ -21,28 +19,41 @@ export const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [isLoading,setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [userType, setuserType] = useState(1); //1 for user, 2 for service provide, 3 for admin
 
   const navigate = useNavigate();
-  const userContext = useContext(UserContext);
 
   const SignupHandler = async (event) => {
     event.preventDefault();
-    if (!email || !password) {
+    if (!email || !password || !name) {
       alert("Please enter all the fields");
     } else {
       setIsLoading(true);
-      const loginResponse = await fetchApi(
-        "/register",
-        {
-          email,
-          password,
-          name,
-        }
-      );
+      let loginResponse;
+      if (Number(userType) === 2) {
+        loginResponse = await fetchApi(
+          "/service_provider/registersp",
+          {
+            email,
+            password,
+            name,
+          },
+          "post"
+        );
+      } else if (Number(userType) === 1) {
+        loginResponse = await fetchApi(
+          "/register",
+          {
+            email,
+            password,
+            name,
+          },
+          "post"
+        );
+      }
       setIsLoading(false);
-      if (loginResponse.status === "ok") {
+      if (loginResponse && loginResponse.status === "ok") {
         alert("Verification email sent, please verify your email");
         navigate("/login");
       } else {
@@ -53,8 +64,8 @@ export const Register = () => {
 
   return (
     <>
-      {!isLoading ? (
-        <h1>Loading</h1>
+      {isLoading ? (
+        <Loader />
       ) : (
         <BgImgContainer>
           <MainContainer>
@@ -90,7 +101,7 @@ export const Register = () => {
               <Input
                 type="radio"
                 name="userType"
-                value={3}
+                value={2}
                 onChange={(e) => setuserType(e.target.value)}
               />
               <label>Service Provider</label>

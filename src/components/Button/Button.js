@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export default function Button({ content, onClick, type, color }) {
+export default function Button({ content, onClick, type, color,id }) {
   return (
-    <StyledButton onClick={onClick} type={type}>
+    <StyledButton onClick={onClick} type={type} id={id}>
       {content}
     </StyledButton>
   );

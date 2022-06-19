@@ -9,6 +9,9 @@ import UserContext from "./context/UserContext";
 import ListService from "./pages/Service/ListService";
 import AddService from "./pages/Service/AddService";
 import constants from "./GlobalConstants";
+import Logout from "./pages/Logout/Logout";
+import AdminListService from "./pages/Service/AdminServiceList";
+import UpdateService from "./pages/Service/UpdateService";
 
 function App() {
   const [menuItems, setMenuItems] = useState(constants.DEFAULT_MENU);
@@ -26,7 +29,7 @@ function App() {
     userName: globalState.userName,
     userId: globalState.userId,
     userEmail: globalState.userEmail,
-    setIsLoggedIn: (value, userType,userData) => {
+    setIsLoggedIn: (value, userType, userData) => {
       //set menu items based on user type
       if (userType === constants.USER_TYPE.ADMIN)
         setMenuItems(constants.ADMIN_MENU);
@@ -40,7 +43,7 @@ function App() {
         userType: userType,
         userName: userData.name,
         userId: userData.id,
-        userEmail: userData.email
+        userEmail: userData.email,
       });
     },
   };
@@ -53,9 +56,12 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
+          <Route path="/logout" element={<Logout />}></Route>
 
           <Route path="/listservice" element={<ListService />}></Route>
           <Route path="/addservice" element={<AddService />}></Route>
+          <Route path="/adminlistservice" element={<AdminListService />}></Route>
+          <Route path="/adminupdateservice/:id" element={<UpdateService />}></Route>
 
           <Route path="*" element={<Home />}></Route>
         </Routes>

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 const axios = require("axios");
-const useFetch = (method, url, body) => {
+const useFetch = (method, url, body, setFunction, key) => {
   const [isLoading, setIsLoading] = useState(false);
   const [apiData, setApiData] = useState(null);
   const [serverError, setServerError] = useState(null);
@@ -23,11 +23,16 @@ const useFetch = (method, url, body) => {
           data,
         };
         const resp = await axios(config);
+        console.log({ resp });
         const response = resp?.data;
+        if (setFunction) {
+          setFunction(response[key]);
+        }
 
         setApiData(response);
         setIsLoading(false);
       } catch (error) {
+        console.log("useFetch error===>", error);
         setServerError(error.message);
         setIsLoading(false);
       }

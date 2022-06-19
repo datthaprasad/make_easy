@@ -2,7 +2,6 @@ import {
   CardSubtitle,
   CardContainer,
   CardTitle,
-  CardText,
   CardButton,
 } from "./Card.styles";
 

@@ -22,7 +22,7 @@ const StyledInput = styled.input`
   border: none;
   outline: none;
   color: #3c354e;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: bold;
   &:focus {
     display: inline-block;
@@ -33,6 +33,6 @@ const StyledInput = styled.input`
   &::placeholder {
     color: ${(props) => props.color};
     font-weight: 100;
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 `;

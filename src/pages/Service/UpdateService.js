@@ -1,43 +1,64 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "../../components/Button/Button";
 import { Form } from "../../components/Form/Form";
 import Input from "../../components/Input/Input";
 import Loader from "../../components/Loader/Loader";
 import UserContext from "../../context/UserContext";
 import fetchApi from "../../utility/fetch";
+import { useParams } from "react-router";
+import useFetch from "../../hooks/useFetch";
 
-const AddService = () => {
+const UpdateService = () => {
+  const { id } = useParams();
+  const userContext = useContext(UserContext);
   const [service, setService] = useState({
     name: "",
     description: "",
-    price: "",
+    id: 0,
+    price: 0,
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const [submitLoading, setIsLoading] = useState(false);
+  const { isLoading, apiData, serverError } = useFetch(
+    "get",
+    "/service/oneservice/" + Number(id)
+  );
   const submitHandler = async (e) => {
     e.preventDefault();
+
     if (!service.name || !service.description || !service.price) {
       alert("Please fill all the fields");
       return;
     }
     setIsLoading(true);
     const response = await fetchApi(
-      "/service/addservice",
+      "/service/editservice",
       {
         servicename: service.name,
         desc: service.description,
         price: service.price,
+        service_id: id,
       },
       "post"
     );
     setIsLoading(false);
-    if (response === "success") alert("Service added successfully");
+    if (response.status === "success") alert("Service updated successfully");
     else alert("Something went wrong");
   };
-  const userContext = useContext(UserContext);
+
+  useEffect(() => {
+    if (apiData)
+      setService({
+        name: apiData.service.name,
+        description: apiData.service.description,
+        id: apiData.service.id,
+        price: apiData.service.price,
+      });
+  }, [apiData]);
 
   return (
     <>
-      {isLoading ? (
+      {serverError && <h1>{serverError}</h1>}
+      {isLoading || submitLoading ? (
         <Loader />
       ) : (
         <>
@@ -77,16 +98,10 @@ const AddService = () => {
                 }
               />
               <br />
-              <Button
-                type="submit"
-                name="submit"
-                placeholder="Submit"
-                label="Submit"
-                content="Add Service"
-              />
+              <Button name="submit" content="Update Service" />
             </Form>
           )}
-          {userContext.userType != 3 && (
+          {userContext.userType !== 3 && (
             <h1>You are not authorized to view this page</h1>
           )}
         </>
@@ -94,4 +109,4 @@ const AddService = () => {
     </>
   );
 };
-export default AddService;
+export default UpdateService;

@@ -1,10 +1,10 @@
-const fetchApi = async (url, body) => {
+const fetchApi = async (url, body,method) => {
   try {
     const axios = require("axios");
     const qs = require("qs");
     const data = qs.stringify(body);
     const config = {
-      method: "post",
+      method: method,
       url: "http://localhost:8000/api" + url,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
