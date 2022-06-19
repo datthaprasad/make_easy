@@ -34,7 +34,7 @@ const AdminListService = () => {
   };
 
   useEffect(() => {
-    if (!userContext.isLoggedIn || useContext.userType !== 3) {
+    if (!userContext.isLoggedIn || userContext.userType !== 3) {
       window.location.href = "/login";
     }
   }, [userContext.isLoggedIn, userContext.userType]);
