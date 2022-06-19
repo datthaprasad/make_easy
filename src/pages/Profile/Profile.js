@@ -14,49 +14,63 @@ import userContext from "../../context/UserContext";
 import { useEffect } from "react";
 import { useState } from "react";
 import fetchApi from "../../utility/fetch";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const UserContext = useContext(userContext);
   const [isLoading, setIsLoading] = useState(false);
   const [apiData, setApiData] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchProfile(id) {
       setIsLoading(true);
-      //TODO API call
       const response = await fetchApi(
         "/service_provider/getUser",
-        { id },
+        { user_id: id },
         "post"
       );
-      setApiData(response)
+      setApiData(response);
       setIsLoading(false);
     }
-    if (UserContext.isLoggedIn && UserContext.userType === 2) fetchProfile();
+    if (UserContext.isLoggedIn && UserContext.userType === 2)
+      fetchProfile(UserContext.userId);
     else {
       alert("Invalid service provider");
       window.location.replace("/");
     }
-  });
+  }, [UserContext.isLoggedIn, UserContext.userType, UserContext.userId]);
+
+  const editHandler = async (e) => {
+    e.preventDefault();
+    navigate("/editprofile");
+  };
 
   return (
     <>
       {isLoading && <Loader />}
-      {!isLoading && apiData && (
+      {apiData && (
         <Container>
           <ProfileCard>
-            <ProfileName>{apiData.name}</ProfileName>
-            <ProfileEmail>
-              <StyledLabel>EMAIL</StyledLabel> : {apiData.email}
-            </ProfileEmail>
-            <ProfileService>
-              <StyledLabel>PHONE</StyledLabel> : {apiData.phone}
-            </ProfileService>
-            <ProfileService>
-              <StyledLabel>ADDRESS</StyledLabel> : {apiData.address}
-            </ProfileService>
+            {apiData.phone && (
+              <>
+                <ProfileName>{apiData.name}</ProfileName>
+                <ProfileEmail>
+                  <StyledLabel>EMAIL</StyledLabel> : {apiData.email}
+                </ProfileEmail>
+                <ProfileService>
+                  <StyledLabel>PHONE</StyledLabel> : {apiData.phone}
+                </ProfileService>
+                <ProfileService>
+                  <StyledLabel>ADDRESS</StyledLabel> : {apiData.address}
+                </ProfileService>
+              </>
+            )}
+            {!apiData.phone && (
+              <ProfileService>Please Update Your Details.</ProfileService>
+            )}
             <ProfileButtonContainer>
-              <Button content="Edit Profile" />
+              <Button content="Edit Profile" onClick={editHandler} />
             </ProfileButtonContainer>
           </ProfileCard>
         </Container>
