@@ -22,6 +22,8 @@ const Profile = () => {
   const [apiData, setApiData] = useState();
   const navigate = useNavigate();
 
+  console.log({apiData});
+
   useEffect(() => {
     async function fetchProfile(id) {
       setIsLoading(true);
@@ -30,6 +32,7 @@ const Profile = () => {
         { user_id: id },
         "post"
       );
+      console.log({response});
       if (response.phone) {
         const service = await fetchApi(
           "/service/oneservice/" + response.service_id,
@@ -44,7 +47,8 @@ const Profile = () => {
             service_price: service.service.price,
           });
         else setApiData({name:response.name});
-      }
+      }else
+      setApiData({name:response.name});
       setIsLoading(false);
     }
     if (UserContext.isLoggedIn && UserContext.userType === 2)
