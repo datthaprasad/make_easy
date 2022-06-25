@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card } from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader";
 import UserContext from "../../context/UserContext";
@@ -7,6 +8,7 @@ import { GridContainer } from "../../GlobalStyles";
 import useFetch from "../../hooks/useFetch";
 
 const ListService = () => {
+  const navigation = useNavigate();
   const userContext = useContext(UserContext);
   const { isLoading, apiData, serverError } = useFetch(
     "get",
@@ -32,6 +34,10 @@ const ListService = () => {
           {apiData.services.map((service, index) => {
             return (
               <Card
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigation(`/serviceproviderlist/${service.id}`);
+                }}
                 key={service.id}
                 name={service.name}
                 description={service.description}

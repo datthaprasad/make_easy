@@ -31,12 +31,14 @@ export const ProfileEmail = styled.h2`
   margin-bottom: 10px;
   position: relative;
   left: 0;
+  color: #f5f5f5;
 `;
 
 export const ProfileService = styled.h3`
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 10px;
+  color: #f5f505;
 `;
 
 export const ProfileButtonContainer = styled.div`

@@ -30,7 +30,21 @@ const Profile = () => {
         { user_id: id },
         "post"
       );
-      setApiData(response);
+      if (response.phone) {
+        const service = await fetchApi(
+          "/service/oneservice/" + response.service_id,
+          {},
+          "get"
+        );
+        if (service.service)
+          setApiData({
+            ...response,
+            service_name: service.service.name,
+            service_description: service.service.description,
+            service_price: service.service.price,
+          });
+        else setApiData({name:response.name});
+      }
       setIsLoading(false);
     }
     if (UserContext.isLoggedIn && UserContext.userType === 2)
@@ -63,6 +77,17 @@ const Profile = () => {
                 </ProfileService>
                 <ProfileService>
                   <StyledLabel>ADDRESS</StyledLabel> : {apiData.address}
+                </ProfileService>
+                <ProfileService>
+                  <StyledLabel>SERVICE</StyledLabel> : {apiData.service_name}
+                </ProfileService>
+                <ProfileService>
+                  <StyledLabel>SERVICE DESCRIPTION</StyledLabel> :{" "}
+                  {apiData.service_description}
+                </ProfileService>
+                <ProfileService>
+                  <StyledLabel>SERVICE DESCRIPTION</StyledLabel> :{" "}
+                  {apiData.service_price}
                 </ProfileService>
               </>
             )}

@@ -14,6 +14,7 @@ import AdminListService from "./pages/Service/AdminServiceList";
 import UpdateService from "./pages/Service/UpdateService";
 import Profile from "./pages/Profile/Profile";
 import EditProfile from "./pages/Profile/EditProfile";
+import ListServiceProviders from "./pages/Service/ListServiceProviders";
 
 function App() {
   const [menuItems, setMenuItems] = useState(constants.DEFAULT_MENU);
@@ -73,6 +74,8 @@ function App() {
 
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/editprofile" element={<EditProfile />}></Route>
+
+          <Route path="/serviceproviderlist/:serviceId" element={<ListServiceProviders />}></Route>
 
           <Route path="*" element={<Home />}></Route>
         </Routes>

@@ -5,9 +5,9 @@ import {
   CardButton,
 } from "./Card.styles";
 
-export const Card = ({ name, description, price }) => {
+export const Card = ({ name, description, price, onClick }) => {
   return (
-    <CardContainer>
+    <CardContainer onClick={onClick}>
       <CardTitle>{name}</CardTitle>
       <CardSubtitle>{description}</CardSubtitle>
       {/* <CardText>{description}</CardText> */}

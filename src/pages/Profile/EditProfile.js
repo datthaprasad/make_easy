@@ -23,7 +23,6 @@ const EditProfile = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log({ userDetails });
     if (
       !userDetails.name ||
       !userDetails.address ||
@@ -60,7 +59,6 @@ const EditProfile = () => {
         { user_id: UserContext.userId },
         "post"
       );
-      console.log("dps", { response });
       setUserDetails({
         name: response.name,
         phone: response.phone,
