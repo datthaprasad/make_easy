@@ -29,7 +29,7 @@ const AdminListService = () => {
       { service_id: Number(e.target.id) },
       "delete"
     );
-    if (response.status === "success") window.location.reload();
+    if (response.status === "success") navigate("/")
     else alert("Something went wrong!...");
   };
 

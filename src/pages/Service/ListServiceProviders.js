@@ -43,12 +43,11 @@ const ListServiceProviders = () => {
         "post"
       );
       setIsLoading(false);
-      console.log({ response }, "======>");
       if (response.status === "ok") {
         //open in new tab
         window.open(response.response.short_url);
       } else {
-        alert("Booking failed due to " + response.response);
+        alert("Booking failed...!");
       }
     } else {
       alert("Please login to book");

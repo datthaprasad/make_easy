@@ -33,6 +33,11 @@ constants.USER_MENU = [
     handler: () => {},
   },
   {
+    name: "Bookings",
+    navigate: "/bookings",
+    handler: () => {},
+  },
+  {
     name: "Logout",
     navigate: "/logout",
     type: "button",

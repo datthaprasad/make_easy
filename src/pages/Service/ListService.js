@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Card } from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader";
 import UserContext from "../../context/UserContext";
+import constants from "../../GlobalConstants";
 import { GridContainer } from "../../GlobalStyles";
 import useFetch from "../../hooks/useFetch";
 
@@ -36,7 +37,8 @@ const ListService = () => {
               <Card
                 onClick={(e) => {
                   e.preventDefault();
-                  navigation(`/serviceproviderlist/${service.id}`);
+                  if (userContext.userType === constants.USER_TYPE.NORMAL_USER)
+                    navigation(`/serviceproviderlist/${service.id}`);
                 }}
                 key={service.id}
                 name={service.name}
