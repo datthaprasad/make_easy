@@ -19,6 +19,9 @@ const ListServiceProviders = () => {
 
     if (userContext.isLoggedIn) {
       setIsLoading(true);
+      const contactNumber = prompt("Enter your contact number");
+      const addressForService = prompt("Enter your address");
+      
       const service = await fetchApi(
         "/service/oneservice/" + serviceId,
         {},
@@ -39,6 +42,8 @@ const ListServiceProviders = () => {
             .childNodes[1].innerHTML,
           email: document.getElementById(e.target.id).parentElement.parentNode
             .childNodes[2].innerHTML,
+          client_phone: contactNumber,
+          client_address: addressForService,
         },
         "post"
       );
